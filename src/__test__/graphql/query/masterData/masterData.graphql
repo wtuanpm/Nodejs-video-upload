@@ -1,0 +1,10 @@
+query getMasterData($filter: MasterDataFilterInput, $pageSize: Int, $pageIndex: Int) {
+  adminGetAllMasterData(filter: $filter, pageSize: $pageSize, pageIndex: $pageIndex) {
+    items {
+      ...masterDataFragment
+    }
+    paginate {
+      ...paginateFragment
+    }
+  }
+}

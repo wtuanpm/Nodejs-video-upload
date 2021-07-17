@@ -1,0 +1,5 @@
+mutation adminCreateArticle($data: AdminCreateArticleInput!) {
+  adminCreateArticle(data: $data) {
+    ...articleFragment
+  }
+}

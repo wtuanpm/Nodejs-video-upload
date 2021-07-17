@@ -1,0 +1,3 @@
+mutation adminChangeArticleStatus($id: ID!, $data: AdminChangeArticleStatusInput!) {
+  adminChangeArticleStatus(id: $id, data: $data)
+}

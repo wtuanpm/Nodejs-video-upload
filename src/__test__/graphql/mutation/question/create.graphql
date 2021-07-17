@@ -1,0 +1,5 @@
+mutation createQuestion($data: CreateQuestionInput!) {
+  createQuestion(data: $data) {
+    ...QuestionFragment
+  }
+}

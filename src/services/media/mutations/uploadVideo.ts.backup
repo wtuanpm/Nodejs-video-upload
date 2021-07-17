@@ -1,0 +1,58 @@
+import { MutationResolvers, ErrorCodes, MediaType, MediaStatus } from '@graphql/types/generated-graphql-types';
+import { allowedVideoType, getMediaUrl } from '@utils/helpers';
+import { makeGraphqlError } from '@utils/error';
+import mkdirp from 'mkdirp';
+import { MediaEntity } from '@database/entities/MediaEntity';
+import { createWriteStream, unlink } from 'fs';
+
+import { createMedia } from '@business/media';
+import Queues from '@services/worker/typed-queue';
+
+const ffmpeg = require('fluent-ffmpeg');
+
+export const uploadVideo: MutationResolvers['uploadVideo'] = async (_, { upload }, { auth }) => {
+  const { createReadStream, filename, mimetype } = await upload;
+
+  const { metaData } = auth;
+
+  if (!allowedVideoType(mimetype)) {
+    throw makeGraphqlError('Not allowed mime type!', ErrorCodes.BadUserInput);
+  }
+
+  const stream = createReadStream();
+  const folderPath = `${new Date().getFullYear()}/${new Date().getMonth() + 1}/${new Date().getDate()}/${new Date().getTime()}`;
+
+  await mkdirp(`public/${folderPath}`);
+  const endpoint = `${folderPath}/${filename}`;
+
+  const media: MediaEntity = await new Promise((resolve, reject) => {
+    const writeStream = createWriteStream(`public/${endpoint}`);
+
+    writeStream.on('finish', async () => {
+      const uri = getMediaUrl(endpoint);
+      //   console.log('uri', uri);
+
+      const media = await createMedia({ createdBy: metaData.nameOfUser, uri, fileName: filename, fileType: mimetype, type: MediaType.VIDEO, status: MediaStatus.PROCESSING });
+
+      Queues.handleVideoUploaded.add({ mediaId: media.id, videoDir: `public/${endpoint}` });
+
+      resolve(media);
+    });
+
+    writeStream.on('error', (error) => {
+      unlink(`public/${endpoint}`, () => {
+        reject(error);
+      });
+    });
+
+    // In Node.js <= v13, errors are not automatically propagated between piped
+    // streams. If there is an error receiving the upload, destroy the write
+    // stream with the corresponding error.
+    stream.on('error', (error) => writeStream.destroy(error));
+
+    // Pipe the upload into the write stream.
+    stream.pipe(writeStream);
+  });
+
+  return media;
+};

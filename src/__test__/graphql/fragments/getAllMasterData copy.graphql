@@ -1,0 +1,27 @@
+fragment logsFragment on Log {
+  id
+  message
+  parentId
+  createdById
+  createdAt
+  updatedAt
+}
+
+fragment paginateFragment on Paginate {
+  pageIndex
+  totalPage
+  pageSize
+  totalItems
+}
+
+fragment masterDataFragment on MasterData {
+  id
+  status
+  category
+  value
+  createdAt
+  logs {
+    ...logsFragment
+  }
+  updatedAt
+}

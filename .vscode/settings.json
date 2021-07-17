@@ -1,0 +1,18 @@
+{
+  "workbench.colorCustomizations": {
+    "activityBar.background": "#7facff",
+    "activityBar.activeBorder": "#7facff",
+    "activityBar.foreground": "#fbff00",
+    "activityBar.inactiveForeground": "#dfdddd",
+    "activityBarBadge.background": "#7facff",
+    "activityBarBadge.foreground": "#7a0000",
+    "titleBar.activeBackground": "#7facff",
+    "titleBar.inactiveBackground": "#7facff",
+    "titleBar.activeForeground": "#fff",
+    "titleBar.inactiveForeground": "#fff",
+    "statusBar.background": "#7facff",
+    "statusBarItem.hoverBackground": "#7facff",
+    "statusBar.foreground": "#fff"
+  },
+  "cSpell.words": ["mixins", "moleculer"]
+}

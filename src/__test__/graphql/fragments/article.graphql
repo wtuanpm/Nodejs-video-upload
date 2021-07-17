@@ -1,0 +1,37 @@
+fragment masterDataFragment1 on MasterData {
+  id
+  status
+  category
+  value
+  createdAt
+  logs {
+    ...logsFragment
+  }
+  updatedAt
+}
+fragment articleFragment on Article {
+  id
+  title
+  note
+  content
+  logs {
+    ...logsFragment
+  }
+  author
+  photoId
+  photo {
+    ...photoFragment
+  }
+  masterData {
+    ...masterDataFragment1
+  }
+  status
+  masterDataId
+  createdById
+  createdBy {
+    id
+    # fullName
+  }
+  createdAt
+  updatedAt
+}

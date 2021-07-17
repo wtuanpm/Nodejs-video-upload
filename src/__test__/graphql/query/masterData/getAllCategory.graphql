@@ -1,0 +1,5 @@
+query getAllCategory($data: AdminGetAllCategoryValueInput!) {
+  adminGetAllCategoryValue(data: $data) {
+    ...masterDataFragment
+  }
+}

@@ -1,0 +1,12 @@
+# import * from "./base.graphql"
+
+type User {
+  id: ID!
+  fullName: String!
+  username: String!
+
+  role: RoleCodes
+
+  createdAt: Int!
+  updatedAt: Int
+}

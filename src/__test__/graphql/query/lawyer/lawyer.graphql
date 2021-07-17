@@ -1,0 +1,5 @@
+query getLawyer($data: AdminGetLawyerInput) {
+  adminGetLawyer(data: $data) {
+    ...lawyerFragment
+  }
+}

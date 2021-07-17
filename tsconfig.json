@@ -1,0 +1,40 @@
+{
+  "compilerOptions": {
+    "lib": ["es5", "es6"],
+    "target": "ES2017",
+    "module": "commonjs",
+    "moduleResolution": "node",
+    "outDir": "dist",
+    "emitDecoratorMetadata": true,
+    "experimentalDecorators": true,
+    "sourceMap": true,
+    "baseUrl": ".",
+    "strict": true,
+    "skipLibCheck": true,
+    "allowJs": true,
+    "resolveJsonModule": true,
+    "strictNullChecks": false,
+    "suppressImplicitAnyIndexErrors": false,
+    "allowSyntheticDefaultImports": true,
+    "esModuleInterop": true,
+    "noImplicitAny": false,
+    "downlevelIteration": true,
+    "paths": {
+      "@business/*": ["src/business/*"],
+      "@constants/*": ["src/constants/*"],
+      "@database/*": ["src/database/*"],
+      "@graphql/*": ["src/graphql/*"],
+      "@loaders/*": ["src/loaders/*"],
+      "@services/*": ["src/services/*"],
+      "@utils/*": ["src/utils/*"],
+      "@middleware": ["src/middleware/*"],
+      "@/*": ["src/*"]
+    },
+
+    "noUnusedParameters": false,
+    "noImplicitReturns": true,
+    "noUnusedLocals": false
+  },
+  "include": ["src", "ormconfig.ts"],
+  "exclude": ["dist", "src/__test__/"]
+}

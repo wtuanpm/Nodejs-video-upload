@@ -1,0 +1,54 @@
+# import * from "./base.graphql"
+# import * from "./user.graphql"
+
+type Mutation {
+  # adminLogin(data: AdminLoginInput!): JWT!
+
+  # login(data: MutationLoginInput!): JWT!
+
+  verifyClient(data: VerifyClientInput!): ClientJWT!
+
+  # logout(refreshToken: String!): Boolean!
+  # refreshToken(refreshToken: String!): JWT!
+
+  # forgotPassword(email: String!): Boolean!
+  # resetPassword(token: String!, password: String!): Boolean!
+  # changePassword(data: ChangePasswordInput!): Boolean! @auth
+}
+
+type Query {
+  me: User
+}
+
+type ClientJWT {
+  token: String!
+  refreshToken: String!
+  expiresAt: Int!
+  refreshTokenExpiresAt: Int!
+  payload: ClientPayload
+}
+
+type ClientPayload {
+  nameOfUser: String!
+}
+
+type JWT {
+  token: String!
+  refreshToken: String!
+  uid: ID
+  expiresAt: Int!
+  refreshTokenExpiresAt: Int!
+  payload: User
+}
+
+input MutationLoginInput {
+  email: String!
+  password: String!
+  otp: Int
+}
+
+input VerifyClientInput {
+  clientId: String!
+  secretKey: String!
+  nameOfUser: String!
+}

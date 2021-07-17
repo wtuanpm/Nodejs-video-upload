@@ -1,0 +1,3 @@
+mutation adminUpdateArticle($id: ID!, $data: AdminUpdateArticleInput!) {
+  adminUpdateArticle(id: $id, data: $data)
+}

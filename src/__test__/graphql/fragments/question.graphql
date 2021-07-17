@@ -1,0 +1,29 @@
+fragment QuestionFragment on Question {
+  id
+  title
+  content
+  status
+  answerId
+  answer {
+    id
+    content
+    answeredById
+    answeredBy {
+      id
+    }
+    createdAt
+    updatedAt
+  }
+  assigneeId
+  assignee {
+    id
+    email
+  }
+  masterDataId
+  masterData {
+    ...masterDataFragment
+  }
+  createdById
+  createdAt
+  updatedAt
+}

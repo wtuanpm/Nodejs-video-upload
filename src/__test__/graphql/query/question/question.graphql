@@ -1,0 +1,16 @@
+query getAllQuestions($filter: QuestionFilterInput, $pageSize: Int, $pageIndex: Int) {
+  adminGetAllQuestion(filter: $filter, pageIndex: $pageIndex, pageSize: $pageSize) {
+    items {
+      ...QuestionFragment
+    }
+    paginate {
+      ...paginateFragment
+    }
+  }
+}
+
+query getQuestion($data: AdminGetQuestionInput!) {
+  adminGetQuestion(data: $data) {
+    ...QuestionFragment
+  }
+}

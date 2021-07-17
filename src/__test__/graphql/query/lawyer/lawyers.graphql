@@ -1,0 +1,10 @@
+query getLawyers($filter: LawyerFilterInput, $pageSize: Int, $pageIndex: Int) {
+  adminGetAllLawyer(filter: $filter, pageSize: $pageSize, pageIndex: $pageIndex) {
+    items {
+      ...lawyerFragment
+    }
+    paginate {
+      ...paginateFragment
+    }
+  }
+}

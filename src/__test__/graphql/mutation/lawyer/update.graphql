@@ -1,0 +1,3 @@
+mutation adminUpdateLawyer($id:ID! ,$data: AdminUpdateLawyerInput!) {
+  adminUpdateLawyer(id:$id,data: $data)
+}

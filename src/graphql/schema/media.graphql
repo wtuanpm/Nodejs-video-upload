@@ -1,0 +1,77 @@
+# import * from "./base.graphql"
+
+type Mutation {
+  uploadMedia(upload: Upload!): Media! @auth(requires: [CLIENT])
+  updateMedia(data: UpdateMediaInput!): Media! @auth(requires: [CLIENT])
+}
+
+type Query {
+  getAllMedia(pageSize: Int = 20, pageIndex: Int = 1, filter: MediaFilterInput): Medias! @auth(requires: [CLIENT])
+  getMedia(id: ID!): Media! @auth(requires: [CLIENT])
+}
+
+type Medias {
+  items: [Media!]!
+  paginate: Paginate
+}
+
+type ScreenShot {
+  path: String!
+  url: String
+}
+
+type Media {
+  id: ID!
+  fileName: String!
+  size: Int
+
+  title: String
+
+  description: String
+
+  type: MediaType!
+  fileType: String
+  createdBy: String!
+
+  screenshots: [ScreenShot!]
+
+  status: MediaStatus!
+  path: String!
+  originUrl: String
+
+  videoProfiles: [VideoProfile!]
+
+  duration: Float
+  createdAt: Int!
+  updatedAt: Int
+}
+
+enum VideoPreset {
+  Video360P
+  Video480P
+  Video720P
+  Video1080P
+}
+
+type VideoProfile {
+  preset: VideoPreset
+  path: String!
+  url: String
+}
+
+type BaseMedia {
+  url: String!
+  width: Int!
+  height: Int!
+}
+
+input MediaFilterInput {
+  query: String
+  type: MediaType
+}
+
+input UpdateMediaInput {
+  title: String
+  description: String
+  id: ID!
+}

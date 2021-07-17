@@ -1,0 +1,24 @@
+fragment JWTFragment on JWT {
+  token
+  refreshToken
+  uid
+  expiresAt
+  refreshTokenExpiresAt
+  payload {
+    id
+    # fullName
+  }
+}
+
+fragment userFragment on User {
+  id
+  fullName
+  email
+  isEmailVerified
+  jobTitle
+  phoneNumber
+  avatarId
+  role
+  updatedAt
+  createdAt
+}

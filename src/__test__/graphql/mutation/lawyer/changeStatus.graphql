@@ -1,0 +1,3 @@
+mutation adminChangeLawyerStatus($id:ID!,$data: AdminChangeLayerStatusInput!) {
+  adminChangeLawyerStatus(id:$id,data: $data)
+}

@@ -1,0 +1,5 @@
+mutation adminLogin($data: AdminLoginInput!) {
+  adminLogin(data: $data) {
+    ...JWTFragment
+  }
+}

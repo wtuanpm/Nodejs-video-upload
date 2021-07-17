@@ -1,0 +1,12 @@
+mutation adminAnswerQuestion($data: AdminAnswerQuestionInput!) {
+  adminAnswerQuestion(data: $data) {
+    id
+    content
+    answeredById
+    answeredBy {
+      ...userFragment
+    }
+    createdAt
+    updatedAt
+  }
+}

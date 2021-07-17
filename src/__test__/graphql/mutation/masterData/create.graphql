@@ -1,0 +1,5 @@
+mutation adminCreateMasterData($data: AdminCreateMasterDataInput!) {
+  adminCreateMasterData(data: $data) {
+    ...masterDataFragment
+  }
+}

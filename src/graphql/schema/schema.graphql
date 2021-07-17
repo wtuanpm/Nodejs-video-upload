@@ -1,0 +1,4 @@
+# import *, Query.*, Mutation.*, Subscription.* from "./auth.graphql"
+# import *, Query.*, Mutation.*, Subscription.* from "./base.graphql"
+# import *, Query.*, Mutation.*, Subscription.* from "./user.graphql"
+# import *, Query.*, Mutation.*, Subscription.* from "./media.graphql"

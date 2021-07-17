@@ -1,0 +1,28 @@
+schema: src/graphql/schema/schema.graphql
+generates:
+  ## file result
+  src/graphql/types/generated-graphql-types.ts:
+    plugins:
+      - typescript
+      - typescript-resolvers
+      - typescript-operations
+    config:
+      scalars:
+        ID: any
+      contextType: ./graphql#GraphQLContext
+      enumValues:
+        RoleCodes: '@constants/enum#RoleCodes'
+        MediaType: '@constants/enum#MediaType'
+        MediaStatus: '@constants/enum#MediaStatus'
+        VideoPreset: '@constants/enum#VideoPreset'
+  # src/__test__/graphql/sdk.ts:
+  #   schema: src/graphql/schema/schema.graphql
+  #   documents: 'src/__test__/graphql/**/*.graphql'
+  #   plugins:
+  #     - 'typescript'
+  #     - 'typescript-operations'
+  #     - 'typescript-graphql-request'
+  #   config:
+  #     useTypeImports: true
+  #     omitOperationSuffix: true
+  #     namingConvention: pascal-case#pascalCase

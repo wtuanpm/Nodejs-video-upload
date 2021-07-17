@@ -1,0 +1,3 @@
+mutation adminRejectQuestion($data: AdminRejectQuestionInput!) {
+  adminRejectQuestion(data: $data)
+}

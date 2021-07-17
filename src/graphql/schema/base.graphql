@@ -1,0 +1,45 @@
+directive @auth(requires: [RoleCodes] = []) on OBJECT | FIELD_DEFINITION
+
+scalar Date
+scalar Upload
+scalar Mockup
+
+type Paginate {
+  pageIndex: Int
+  totalPage: Int
+  pageSize: Int!
+  totalItems: Int
+}
+
+enum Order {
+  ASC
+  DESC
+}
+
+enum RoleCodes {
+  ADMIN
+  USER
+  CLIENT
+}
+
+enum ErrorCodes {
+  GRAPHQL_PARSE_FAILED
+  GRAPHQL_VALIDATION_FAILED
+  UNAUTHENTICATED
+  FORBIDDEN
+  BAD_USER_INPUT
+  INTERNAL_SERVER_ERROR
+}
+
+enum MediaType {
+  PHOTO
+  VIDEO
+  FILE
+  OTHER
+}
+
+enum MediaStatus {
+  FAILED
+  PROCESSING
+  READY
+}

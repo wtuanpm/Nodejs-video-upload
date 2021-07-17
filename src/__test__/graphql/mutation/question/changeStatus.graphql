@@ -1,0 +1,3 @@
+mutation adminChangeQuestionStatus($data: ChangeQuestionStatusInput!) {
+  adminChangeQuestionStatus(data: $data)
+}

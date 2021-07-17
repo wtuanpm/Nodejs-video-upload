@@ -1,0 +1,40 @@
+fragment lawyerFragment on Lawyer {
+  id
+  email
+  fullName
+  school
+  phoneNumber
+  level
+  jobTitle
+  company
+  address
+  description
+  experience
+  avatarId
+  avatar {
+    ...photoFragment
+  }
+  logs {
+    ...logsFragment
+  }
+  jobField {
+    ...masterDataFragment
+  }
+  experience
+  status
+  avatarId
+  joinedAt
+  # createdAt
+  updatedAt
+}
+
+fragment photoFragment on Photo {
+  id
+  name
+  url
+  thumbnail
+  original
+  uploadById
+  createdAt
+  updatedAt
+}

@@ -1,0 +1,57 @@
+import { MutationResolvers, MediaType } from '@graphql/types/generated-graphql-types';
+import { createMedia } from '@business/media';
+import { createWriteStream, unlink } from 'fs';
+import mkdirp from 'mkdirp';
+import { makeGraphqlError } from '@utils/error';
+import { ErrorCodes } from '@/__test__/graphql/sdk';
+import { MediaEntity } from '@database/entities/MediaEntity';
+import env from '@/env';
+import { allowedMimeType } from '@utils/helpers';
+import { reduceImageSize } from '@utils/upload';
+
+export const uploadPhoto: MutationResolvers['uploadPhoto'] = async (_, { upload }, { auth }) => {
+  const { createReadStream, filename, mimetype } = await upload;
+  const { clientId, metaData, role, uid } = auth;
+
+  if (!allowedMimeType(mimetype)) {
+    throw makeGraphqlError('Tệp tải lên không đúng định dạng!', ErrorCodes.BadUserInput);
+  }
+
+  const stream = createReadStream();
+  const folderPath = `${new Date().getFullYear()}/${new Date().getMonth() + 1}/${new Date().getDate()}/${new Date().getTime()}`;
+
+  await mkdirp(`public/${folderPath}`);
+  const endpoint = `${folderPath}/${filename}`;
+  const thumbnail = `${folderPath}/thumbnail-${filename}`;
+
+  const media: MediaEntity = await new Promise((resolve, reject) => {
+    // Create a stream to which the upload will be written.
+    const writeStream = createWriteStream(`public/${endpoint}`);
+
+    // When the upload is fully written, resolve the promise.
+    writeStream.on('finish', async () => {
+      await reduceImageSize(`public/${endpoint}`, { width: 360 }, `public/${thumbnail}`);
+
+      const media = await createMedia({ createdBy: metaData.nameOfUser, uri: `${env.prefixUrl}/${endpoint}`, fileName: filename, fileType: mimetype, type: MediaType.PHOTO });
+
+      resolve(media);
+    });
+
+    // If there's an error writing the file, remove the partially written file
+    // and reject the promise.
+    writeStream.on('error', (error) => {
+      unlink(`public/${endpoint}`, () => {
+        reject(error);
+      });
+    });
+
+    // In Node.js <= v13, errors are not automatically propagated between piped
+    // streams. If there is an error receiving the upload, destroy the write
+    // stream with the corresponding error.
+    stream.on('error', (error) => writeStream.destroy(error));
+
+    // Pipe the upload into the write stream.
+    stream.pipe(writeStream);
+  });
+  return media;
+};

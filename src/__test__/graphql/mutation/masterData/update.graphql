@@ -1,0 +1,3 @@
+mutation adminUpdateMasterData($data: AdminUpdateMasterDataInput!) {
+  adminUpdateMasterData(data: $data)
+}

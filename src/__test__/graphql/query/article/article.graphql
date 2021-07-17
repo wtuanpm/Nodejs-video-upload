@@ -1,0 +1,16 @@
+query getAllArticle($filter: ArticleFilterInput, $pageSize: Int, $pageIndex: Int) {
+  adminGetAllArticle(filter: $filter, pageIndex: $pageIndex, pageSize: $pageSize) {
+    items {
+      ...articleFragment
+    }
+    paginate {
+      ...paginateFragment
+    }
+  }
+}
+
+query getArticle($data: AdminGetArticleInput!) {
+  adminGetArticle(data: $data) {
+    ...articleFragment
+  }
+}
