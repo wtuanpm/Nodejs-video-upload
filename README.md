@@ -1,4 +1,4 @@
-# video upload
+# Video upload
 
 # User manual
 
